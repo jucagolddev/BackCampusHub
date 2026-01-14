@@ -67,7 +67,3 @@
 ├── tsconfig.json     # Configuración de TypeScript
 └── package.json      # Dependencias y scripts
 ```
-
-## 📄 Licencia
-
-Este proyecto es de uso privado y educativo para el desarrollo de la plataforma CampusHub.
