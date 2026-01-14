@@ -1,91 +1,73 @@
-# CampusHub Backend (Node.js)
+# BackCampusHub
 
-Este es el servidor del proyecto CampusHub, desarrollado con **Node.js**, **Express** y **MySQL**. Proporciona una API RESTful para la gestión de usuarios, proyectos y catálogos educativos.
+**BackCampusHub** es el motor backend para la plataforma de gestión académica CampusHub. Desarrollado con **Node.js** y **TypeScript**, proporciona una API robusta y escalable para gestionar usuarios, proyectos, centros educativos y sus relaciones jerárquicas.
 
-## Tecnologías Utilizadas
+## ✨ Características
 
-- **Node.js**: Entorno de ejecución para el servidor.
-- **Express**: Framework web para la creación de la API.
-- **MySQL**: Base de datos relacional (gestionada con la librería `mysql2`).
-- **Bcrypt**: Para el cifrado seguro de contraseñas.
-- **UUID**: Generación de tokens únicos para sesiones de usuario.
-- **Cors**: Manejo de políticas de origen cruzado para la comunicación con el frontend.
-- **Dotenv**: Gestión de variables de entorno.
+- 🔐 **Autenticación Segura**: Sistema de registro y login con hashing de contraseñas mediante `bcrypt` y tokens basados en UUID.
+- 🏗️ **Arquitectura Limpia**: Organización basada en Controladores, Modelos y Rutas para una fácil mantenibilidad.
+- 📊 **Gestión de Datos**: Completa API para gestionar Centros, Títulos, Cursos, Módulos y Roles.
+- 🤝 **Sistema de Relaciones**: Gestión de relaciones N:M entre usuarios, proyectos y entidades académicas.
+- 🛡️ **Seguridad con TypeScript**: Tipado estricto para reducir errores en tiempo de ejecución.
 
-## Estructura del Proyecto
+## 🛠️ Tecnologías
 
-```text
-NODE/
-├── .env                # Variables de entorno (puerto, credenciales BD, etc.)
-├── db.js               # Configuración inicial del pool de conexiones
-├── server.js           # Punto de entrada principal del servidor
-├── package.json        # Dependencias y scripts del proyecto
-└── src/
-    ├── controllers/    # Lógica de control para cada entidad
-    ├── db/             # Gestión detallada del pool de conexiones
-    ├── middleware/     # Middlewares (ej. autenticación)
-    ├── models/         # Consultas SQL organizadas por modelos de datos
-    ├── routes/         # Definición de endpoints de la API
-    ├── sql/            # Esquema de la base de datos (schema.sql)
-    └── utils/          # Funciones de utilidad (ej. hashing)
-```
+- **Entorno**: Node.js
+- **Lenguaje**: TypeScript (ES Modules)
+- **Framework**: Express.js
+- **Base de Datos**: MySQL (utilizando `mysql2/promise`)
+- **Seguridad**: Bcrypt, UUID, Dotenv
+- **Desarrollo**: TSX (Hot Reloading), TSC (Compilador de TS)
 
-## Configuración e Instalación
+## 🚀 Instalación y Uso
 
-1. **Instalar dependencias**:
-   Desde la carpeta `NODE`, ejecuta:
+### Requisitos previos
 
+- Node.js (v18 o superior recomendado)
+- Servidor MySQL (XAMPP recomendable)
+
+### Configuración
+
+1. Clona el repositorio.
+2. Instala las dependencias:
    ```bash
    npm install
    ```
-
-2. **Configurar base de datos**:
-
-   - Asegúrate de tener un servidor MySQL funcionando (ej. XAMPP).
-   - Crea la base de datos (por defecto `proyecto_integrado`).
-   - Importa el archivo SQL ubicado en `src/sql/schema.sql`.
-
-3. **Variables de Entorno**:
-   Crea o edita el archivo `.env` en la raíz de la carpeta `NODE` con el siguiente formato:
+3. Configura las variables de entorno:
+   Renombra o crea un archivo `.env` basado en el siguiente ejemplo:
    ```env
    PORT=3000
    DB_HOST=localhost
    DB_USER=root
-   DB_PASS=
+   DB_PASSWORD=tu_contraseña
    DB_NAME=proyecto_integrado
-   JWT_SECRET=tu_secreto_aqui
    ```
+4. Base de Datos:
+   Importa el esquema SQL ubicado en `src/sql/schema.sql` en tu base de datos MySQL.
 
-## Ejecución del Servidor
+### Scripts disponibles
 
-- **Producción**:
-  ```bash
-  npm start
-  ```
-- **Desarrollo (con recarga automática)**:
-  ```bash
-  npm run dev
-  ```
+- **Desarrollo**: `npm run dev` (Inicia el servidor con recarga automática).
+- **Construcción**: `npm run build` (Compila TypeScript a la carpeta `dist/`).
+- **Producción**: `npm start` (Ejecuta el código compilado).
 
-## Endpoints Principales
+## 📁 Estructura del Proyecto
 
-### Usuarios
+```text
+├── src/
+│   ├── controllers/ # Lógica de los endpoints
+│   ├── models/      # Consultas a la base de datos
+│   ├── routes/       # Definición de rutas de la API
+│   ├── middleware/   # Middlewares (Autenticación, etc.)
+│   ├── sql/          # Esquema de la base de datos
+│   ├── utils/        # Funciones de utilidad (hashing, etc.)
+│   └── types.ts      # Definiciones de interfaces globales
+├── server.ts         # Punto de entrada de la aplicación
+├── db.ts             # Configuración del pool de la base de datos
+├── tsconfig.json     # Configuración de TypeScript
+└── package.json      # Dependencias y scripts
+```
 
-- `POST /api/users/register`: Registro de nuevos usuarios.
-- `POST /api/users/login`: Autenticación y obtención de token.
+## 📄 Licencia
 
-### Proyectos
-
-- `GET /api/projects`: Listado público de proyectos.
-- `POST /api/projects`: Creación de proyecto (requiere token).
-- `PUT /api/projects/:id`: Edición de proyecto (requiere token y ser miembro).
-
-### Relaciones y Catálogos
-
-- `GET /api/relations/users/:tokken/projects`: Ver proyectos de un usuario.
-- `GET /api/centros`, `GET /api/titulos`, etc.: Listado de catálogos educativos.
-- `POST /api/relations/assign-project`: Vincular usuario a proyecto.
-
----
-
-**Nota**: Todas las rutas protegidas requieren el encabezado `Authorization: Bearer <token>`.
+Este proyecto es de uso privado y educativo para el desarrollo de la plataforma CampusHub.
